@@ -1,23 +1,20 @@
-import logo from './logo.svg';
+import {BrowserRouter,Route,Routes} from 'react-router-dom';
+import VendingMachine from './VendingMachine';
+import Snack from './Snack';
+import SnackPage from './SnackPage'
 import './App.css';
+
+const snackList =[{name:'chips',color:'#52978A',bgColor:'#C8BA81'},{name:'chocolate',color:'#BE82A6',bgColor:'#5F2726'},{name:'fruit',color:'#E4B8F2',bgColor:'#B86F4B'}];
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <BrowserRouter>
+      <Routes>
+       <Route exact path='/' element={<VendingMachine snacks={snackList.map(snack => snack.name)}/>}/>
+       {snackList.map(snack => <Route exact path={`/${snack.name}`} element={<SnackPage snack={snack}/>}/>)}
+      </Routes>
+      </BrowserRouter>
     </div>
   );
 }
